@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="ItemBoard"> <!-- ItemBoard 맵퍼 -->
+    	<resultMap type="ItemBoard" id="ItemBoardResult">
+    		<result column="ibnum" property="ibnum"/>
+    		<result column="qtitle" property="qtitle"/>
+    		<result column="ibcategory" property="ibcategory"/>
+    		<result column="ibtitle" property="ibtitle"/>
+    		<result column="ibcontent" property="ibcontent"/>
+    		<result column="ibimg" property="ibimg"/>
+    		<result column="ibdate" property="ibdate"/>
+    		<result column="ibstate" property="ibstate"/>  
+    		<result column="mid" property="mid"/>
+    	</resultMap>
+    	
+
+
+
+	<select id="itemBoardView" resultMap="ItemBoardResult" parameterType="ItemBoard">
+    		SELECT * FROM ITEMBOARD WHERE IBNUM =#{ibnum}
+    	</select>
+    	<select id="itemBoardList" resultMap="ItemBoardResult" parameterType="ItemBoard">
+    		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT I.*,NVL(CNT,0) CNT FROM ITEMBOARD I,(SELECT COUNT(*) CNT,IBNUM FROM ITEMCOLOR GROUP BY IBNUM )C WHERE I.IBNUM = C.IBNUM(+) 
+    		<if test="choose==1">AND UPPER(IBTITLE) LIKE '%'||UPPER(#{insert})||'%'</if>
+    		<if test="choose==2">AND UPPER(MID) LIKE UPPER(#{insert})||'%'</if>
+    		<if test="choose==3">AND MID=#{insert}</if>  ORDER BY I.IBNUM DESC)A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+    	</select>
+    	<select id="itemBoardCnt" resultType="int">
+    		SELECT COUNT(*) FROM ITEMBOARD 
+    		<if test="choose==1">WHERE UPPER(IBTITLE) LIKE '%'||UPPER(#{insert})||'%'</if>
+    		<if test="choose==2">WHERE UPPER(MID) LIKE UPPER(#{insert})||'%'</if>
+    		<if test="choose== 3">WHERE MID=#{insert}</if>
+    	</select>
+<!-- ******************************insert******************************  -->
+    	<insert id="itemBoardWrite">
+    		INSERT INTO ITEMBOARD (IBNUM,IBCATEGORY,IBTITLE,IBCONTENT<if test="ibimg != ''">,IBIMG</if>,MID)VALUES(IB_SEQ.NEXTVAL,#{ibcategory},#{ibtitle},#{ibcontent},#{ibimg},#{mid})
+    	</insert>
+<!-- ******************************update******************************  -->
+    	<update id="itemBoardModify" >
+			UPDATE ITEMBOARD SET IBDATE=SYSDATE<if test="ibcontent != null">, IBCONTENT=#{ibcontent}</if><if test="ibcategory != null">, IBCATEGORY = #{ibcategory}</if><if test="ibtitle != null">, IBTITLE=#{ibtitle}</if><if test="ibimg != ''">, IBIMG=#{ibimg}</if> WHERE IBNUM = #{ibnum}    	
+		</update>
+    	<update id="itemBoardFin">
+    		UPDATE ITEMBOARD SET IBSTATE = 1 WHERE IBNUM = #{ibnum}
+    	</update>
+    	<update id="itemBoardTrans">
+    		UPDATE ITEMBOARD SET IBSTATE = 2 WHERE IBNUM = #{ibnum}
+    	</update>
+<!-- ******************************delete******************************  -->
+    	<delete id="itemBoardDelete">
+    		DELETE FROM ITEMBOARD WHERE IBNUM = #{ibnum}
+    	</delete>
+
+
+
+
+
+    </mapper>

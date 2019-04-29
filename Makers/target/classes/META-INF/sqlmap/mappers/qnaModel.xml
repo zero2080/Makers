@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="QnA"> <!-- qna 맵퍼 -->
+    	<resultMap type="QnA" id="QnAResult">
+    		<result column="qnum" property="qnum"/>
+    		<result column="qtitle" property="qtitle"/>
+    		<result column="qcontent" property="qcontent"/>
+    		<result column="qgroup" property="qgroup"/>
+    		<result column="qstep" property="qstep"/>
+    		<result column="qfile" property="qfile"/>
+    		<result column="qdate" property="qdate"/>
+    		<result column="qreadcount" property="qreadcount"/>  
+    		<result column="qip" property="qip"/>
+    		<result column="mid" property="mid"/>
+    		<result column="aid" property="aid"/>
+    		<result column="qstat" property="qstat"/>
+    		
+    	</resultMap>
+    	<select id="qnaView" resultMap="QnAResult" parameterType="QnA">
+    		SELECT * FROM QNA WHERE QNUM =#{qnum}
+    	</select>
+    	<select id="qnaList" resultMap="QnAResult" parameterType="QnA">
+    		<if test="choose == null||choose == ''">	
+    			SELECT * FROM (SELECT ROWNUM RN ,A.* FROM (SELECT * FROM QNA ORDER BY QGROUP DESC,QSTEP)A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+    		</if>
+    		<if test="choose== 1||choose ==2">
+    			SELECT * FROM (SELECT ROWNUM RN,A.* FROM (SELECT * FROM QNA WHERE <if test="choose == 1">UPPER(QTITLE) LIKE '%'||UPPER(#{insert})||'%'</if><if test="choose == 2">UPPER(MID) LIKE UPPER(#{insert})||'%'</if> ORDER BY QGROUP DESC,QSTEP)A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+    		</if>
+    		<if test="choose == 3">
+    			SELECT * FROM (SELECT ROWNUM RN , A.* FROM ( SELECT * FROM QNA WHERE MID=#{insert} ORDER BY QGROUP DESC,QSTEP)A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+    		</if>
+    	</select>
+    
+    	<select id="qnaSearchCnt" resultType="int">
+    		SELECT COUNT(*) FROM QNA WHERE <if test="choose == 1">UPPER(QTITLE) LIKE '%'||UPPER(#{insert})||'%'</if><if test="choose == 2">UPPER(MID) LIKE UPPER(#{insert})||'%'</if><if test="choose == 3">MID = #{insert}</if>
+    	</select>
+    	<select id="qnaCnt" resultType="int">
+    		SELECT COUNT(*) FROM QNA
+    	</select>
+    	<select id="qnaChkReply"  resultType="int">
+    		SELECT COUNT(*) FROM QNA WHERE QGROUP = #{qgroup} AND QSTEP>0
+    	</select>
+<!-- ******************************insert******************************  -->
+    	<insert id="qnaWrite">
+    		INSERT INTO QNA (QNUM,QTITLE,QCONTENT,QGROUP,QFILE,QIP,MID)VALUES(QA_SEQ.NEXTVAL,#{qtitle},#{qcontent},QA_SEQ.CURRVAL,#{qfile},#{qip},#{mid})
+    	</insert>
+    	<insert id="qnaReply">
+    		INSERT INTO QNA (QNUM,QTITLE,QCONTENT,QGROUP,QSTEP,QFILE,QIP,AID)VALUES(QA_SEQ.NEXTVAL,#{qtitle},#{qcontent},#{qgroup},#{qstep},#{qfile},#{qip},#{aid})
+    	</insert>
+<!-- ******************************update******************************  -->
+    	<update id="qnaModify" >
+    		UPDATE QNA SET QTITLE=#{qtitle}, QCONTENT=#{qcontent},<if test="qfile != null and !qfile.equals('')"> QFILE=#{qfile},</if>QIP=#{qip} WHERE QNUM=#{qnum}
+    	</update>
+    	<update id="qnaCntUp">
+    		UPDATE QNA SET QREADCOUNT=QREADCOUNT +1 WHERE QNUM = #{qnum}
+    	</update>
+    	<update id="qnaFin">
+    		UPDATE QNA SET QSTAT=1 WHERE QNUM=#{qnum}
+    	</update>
+    	<update id="qnaTrans">
+    		UPDATE QNA SET QSTAT=2,QTITLE ='삭제된 글 입니다.',QCONTENT='',QFILE='noimg.jpg' WHERE QNUM=#{qnum}
+    	</update>
+<!-- ******************************delete******************************  -->
+    	<delete id="qnaDelete">
+    		DELETE FROM QNA WHERE QNUM=#{qnum}
+    	</delete>
+    </mapper>
+    
+    

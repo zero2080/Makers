@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+<!-- 쿼리 결과가 담길 객체 -->
+	<resultMap type="Member" id="MemberResult">
+		<result property="mid" column="mid"/>
+		<result property="mpw" column="mpw"/>
+		<result property="maddr" column="maddr"/>
+		<result property="mphone" column="mphone"/>
+		<result property="mpoint" column="mpoint"/>
+		<result property="mimg" column="mimg"/>
+		<result property="mname" column="mname"/>
+		<result property="maccount" column="maccount"/>
+		<result property="mbank" column="mbank"/>
+		<result property="macname" column="macname"/>
+		<result property="mdate" column="mdate"/>
+		<result property="mstatus" column="mstatus"/>
+	</resultMap>
+	
+	<!-- 로그인 (회원정보 가져오기) -->	
+	<select id="getMember" resultType="Member">
+		SELECT * FROM MEMBER WHERE MID=#{mid}
+	</select>
+	
+	<!-- 아이디 리스트(메세지작성) -->
+	<select id="idList" resultType="Member">
+		SELECT MID FROM MEMBER WHERE MID LIKE '%'||#{mid}||'%' AND MSTATUS > -1
+	</select>
+	<!-- ID(EMAIL)조회 -->
+	<select id="searchId" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE MID=#{mid}
+	</select>
+	
+	<!-- 닉네임(mname)조회 -->
+	<select id="searchMname" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE MNAME = #{mname}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="joinMember" parameterType="Member">
+			INSERT INTO MEMBER (MID, MPW, MADDR, MPHONE, MPOINT, MIMG, MNAME, MBANK, MACCOUNT, MACNAME, MSTATUS) 
+				VALUES (#{mid},#{mpw},#{maddr},#{mphone},0,#{mimg},#{mname},#{mbank},#{maccount},#{macname},0)
+	</insert>
+	
+	<!-- 임시비번 생성값 입력 -->
+	<update id="tempPw" parameterType="Member">
+		UPDATE MEMBER SET MPW=#{mpw} WHERE MID=#{mid} 
+	</update>
+	
+	<!-- 자진 탈퇴 -->
+	<update id="quitMember" parameterType="Member">
+		UPDATE MEMBER SET MSTATUS=-1 WHERE MID=#{mid} AND MPW=#{mpw}
+	</update>
+	
+	<!-- 정보수정 -->
+	<update id="updateMemberInfo" parameterType="Member">
+		UPDATE MEMBER SET MPW=#{mpw}, MADDR=#{maddr}, MPHONE=#{mphone}, MIMG=#{mimg}, MNAME=#{mname}, MBANK=#{mbank}, MACCOUNT=#{maccount}, MACNAME=#{macname} WHERE MID=#{mid}
+	</update>
+	
+	<!--  ****************************** admin 영역 ******************************  -->
+		<!-- 회원리스트 -->
+	<select id="memberListAll" resultMap="MemberResult">
+		SELECT * FROM MEMBER
+	</select>
+	
+		<!-- 회원리스트 페이징 -->
+	<select id="getMemberList" parameterType="Member" resultMap="MemberResult">
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM MEMBER ORDER BY MDATE) A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+		<!-- 강제탈퇴 -->
+	<update id="blackMember" parameterType="Member">
+		UPDATE MEMBER SET MSTATUS=-2 WHERE MID=#{mid}
+	</update>
+	
+		<!-- 포인트 추가/차감 (Service단에서 연산 후 Member객체에 저장) -->
+	<update id="managedPoint" parameterType="Member">
+		UPDATE MEMBER SET MPOINT=#{mpoint} WHERE MID=#{mid}
+	</update>
+	
+	
+</mapper>

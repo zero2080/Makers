@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Prcomment">
+	<resultMap type="Prcomment" id="PrcommentResult">
+		<result property="rn" column="rn"/>
+		<result property="prcnum" column="prcnum"/>
+		<result property="mid" column="mid"/>
+		<result property="pnum" column="pnum"/>
+		<result property="prcgroup" column="prcgroup"/>
+		<result property="prcstep" column="prcstep"/>
+		<result property="prcdate" column="prcdate"/>
+		<result property="prccontent" column="prccontent"/>
+	</resultMap>
+	
+	<!--전체 글 갯수 -->
+	<select id="prcTotCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM PRCOMMENT WHERE PNUM=#{pnum}
+	</select>
+	
+	<!--페이징 리스트-->
+	<select id="prcPagingList" parameterType="Prcomment" resultMap="PrcommentResult">
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT PRCNUM,MID,PNUM,PRCGROUP,PRCSTEP,TO_CHAR(PRCDATE,'yy/MM/dd HH:mm:ss') PRCDATE,PRCCONTENT FROM PRCOMMENT WHERE PNUM=#{pnum} ORDER BY PRCGROUP DESC, PRCNUM, PRCSTEP) A) WHERE RN BETWEEN #{startRow} AND #{endRow}  
+	</select>
+	
+	<!--원글 입력-->
+	<insert id="prcWrite" parameterType="Prcomment">
+		INSERT INTO PRCOMMENT (PRCNUM,MID,PNUM,PRCGROUP,PRCSTEP,PRCDATE,PRCCONTENT) VALUES (PRCOMMENT_SEQ.NEXTVAL,#{mid},#{pnum},PRCOMMENT_SEQ.CURRVAL,0,SYSDATE,#{prccontent})
+	</insert>
+		
+	<!--답글입력-->
+	<insert id="prcReply" parameterType="Prcomment">
+		INSERT INTO PRCOMMENT (PRCNUM,MID,PNUM,PRCGROUP,PRCSTEP,PRCDATE,PRCCONTENT) VALUES (PRCOMMENT_SEQ.NEXTVAL,#{mid},#{pnum},#{prcgroup},1,SYSDATE,#{prccontent})
+	</insert>
+		
+	<!--글삭제/원글-->
+	<delete id="prcDelOrigin" parameterType="int">
+		DELETE FROM PRCOMMENT WHERE PRCGROUP=#{prcgroup}
+	</delete>
+	
+	<!-- 글삭제/답글 -->
+	<delete id="prcDelrepl" parameterType="int">
+		DELETE FROM PRCOMMENT WHERE PRCNUM=#{prcnum}
+	</delete>
+</mapper>

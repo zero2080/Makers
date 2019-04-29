@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FreeBoard">
+	<!-- 쿼리 결과가 담길 객체 -->
+	<resultMap type="FreeBoard" id="FreeBoardResult">
+		<result property="fbnum" column="fbnum" />
+		<result property="mid" column="mid" />
+		<result property="fbcategory" column="fbcategory" />
+		<result property="fbtitle" column="fbtitle" />
+		<result property="fbcontent" column="fbcontent" />
+		<result property="fbfile" column="fbfile" />
+		<result property="fbdate" column="fbdate" />
+		<result property="fbreadcount" column="fbreadcount" />
+		<result property="fbip" column="fbip" />
+	</resultMap>
+
+	<!-- 글 쓰기 -->
+	<insert id="fbWrite"  parameterType="FreeBoard">
+		INSERT INTO FREEBOARD (FBNUM, MID, FBCATEGORY, FBTITLE, FBCONTENT, FBFILE, FBIP,FBREADCOUNT)
+		VALUES 
+		(FREEBOARD_SEQ.NEXTVAL, #{mid}, #{fbcategory},#{fbtitle},#{fbcontent},#{fbfile},#{fbip},0)
+	</insert>
+
+
+	<!-- 자유글 목록 -->
+	<select id="fbList" resultMap="FreeBoardResult" parameterType="FreeBoard" >
+		SELECT * FROM ( SELECT ROWNUM RN, FB.* FROM (SELECT * FROM FREEBOARD WHERE FBCATEGORY='FREE' ORDER BY FBNUM DESC) FB ) 
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	
+	<!-- 공지글 목록 -->
+	<select id="ntList" resultMap="FreeBoardResult" parameterType="FreeBoard" >
+		SELECT * FROM ( SELECT ROWNUM RN, FB.* FROM (SELECT * FROM FREEBOARD WHERE FBCATEGORY='NOTICE' ORDER BY FBNUM DESC) FB ) 
+		WHERE RN BETWEEN #{startRow} AND #{endRow} 
+	</select>
+
+
+	<!-- 글 갯수 -->
+	<select id="fbCount" resultType="int">
+		SELECT COUNT(*) FROM FREEBOARD
+	</select>
+
+
+	<!-- 조회수 + 1 -->
+	<update id="fbReadcountUp" parameterType="int" >
+		UPDATE FREEBOARD SET FBREADCOUNT = FBREADCOUNT + 1 WHERE FBNUM = #{fbnum}
+	</update>
+
+
+	<!-- 글 상세정보 -->
+	<select id="fbContentRead" parameterType="int" resultType="FreeBoard">
+		SELECT * FROM FREEBOARD WHERE FBNUM = #{fbnum}
+	</select>
+	
+
+
+	<!-- 글 수정하기 -->
+	<update id="fbModify" >
+		UPDATE FREEBOARD SET FBTITLE = #{fbtitle},
+                             FBCONTENT = #{fbcontent},
+                             FBFILE = #{fbfile},
+                             FBDATE = SYSDATE
+                       WHERE FBNUM = #{fbnum}
+	</update>
+
+
+	<!-- 글 삭제하기 -->
+	<delete id="fbDelete" parameterType="int" >
+		DELETE FROM FREEBOARD WHERE FBNUM=#{fbnum }
+	</delete>
+
+</mapper>

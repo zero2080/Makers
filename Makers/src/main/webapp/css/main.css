@@ -1,0 +1,370 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+
+#back_img {
+	background-image: url(../teamIMG/back/grunge_wall_@2X.png);
+	/* background: linear-gradient(to bottom, gray, black); */
+}
+
+#container {
+	margin-top: 0;
+	width: 100%;
+}
+
+#top_img {
+	margin-top: 0px;
+	width: 100%;
+	height: 300px;
+	text-align: center;
+	line-height: 300px;
+	font-size: 4em;
+	background-image: url(../teamIMG/칠판2.jpg); 
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	color: lightgray;
+}
+
+#content1 {
+	width: 100%;
+	height: 1100px;
+	/* background-color: white; */
+	position: relative;
+	margin-top: 0;
+	background-image: url(../teamIMG/back/grunge_wall_@2X.png);
+}
+
+/* #content1 h1 {
+	text-align: center;
+	margin-top: 0px;
+	font-size: 50px;
+	padding-top: 70px;
+	padding-bottom: 70px;
+}
+ */
+#mk_bar {
+	width: 100%;
+	height: 50px;
+	/* background-color: #706c6c; */
+	box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.5);
+	background-image: url(../teamIMG/back/mirrored_squares_@2X.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+#slide1 {
+	width: 1400px;
+	height: 600px;
+	left: 50%;
+	margin-left: -700px;
+	margin-top: 70px;
+	position: absolute;
+	/* background-color: white; */
+	overflow: hidden;
+	box-sizing: border-box;
+	/* border: 1px solid black; */
+}
+
+#slide2 {
+	width: 70%;
+	height: 100%;
+	background-color: white;
+	float: left;
+	box-sizing: border-box;
+	border: 1px solid black;
+}
+
+.mini {
+	float: left;
+	width: 14.3%;
+	height: 33%;
+	margin: 0% 0% 0% 0.5%;
+	background-color: white;
+	box-sizing: border-box;
+	border: 1px solid black;
+}
+
+.mini:nth-child(4) {
+	margin-top: 0.5%;
+}
+
+.mini:nth-child(5) {
+	margin-top: 0.5%;
+}
+
+.big {
+	float: left;
+	width: 29.1%;
+	height: 31.7%;
+	margin: 0.5% 0% 0% 0.5%;
+	background-color: white;
+	box-sizing: border-box;
+	border: 1px solid black;
+}
+
+#content2 {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	/* background-color: gray; */
+}
+
+#category_bar {
+	height: 50px;
+	width: 100%;
+	margin-bottom: 20px;
+	/* background-color: lightgray; */
+	overflow: hidden;
+	line-height: 50px;
+	text-align: center;
+	text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+	background-image: url(../teamIMG/back/mirrored_squares_@2X.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+	color: white;
+	box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.5);
+}
+
+#category_bar_in {
+	width: 60%;
+	height: 100%;
+	margin-left: 20%;
+}
+.category_btn {
+	width: 25%;
+	height: 40px;
+	float: left;
+}
+
+.longbox {
+	width: 80%;
+	height: 450px;
+	margin-left: 16.5%;
+	margin-top: 150px;
+}
+
+.long {
+	width: 20%;
+	height: 500px;
+	float: left;
+	background-color: lightgray;
+}
+
+.long:first-child {
+	margin-left: 1%;
+	margin-top: 25px;
+}
+
+.long:nth-child(2) {
+	margin-left: 1%;
+	margin-top: 25px;
+}
+
+.long:nth-child(3) {
+	margin-left: 1%;
+	margin-top: 25px;
+}
+
+.long:last-child {
+	margin-left: 1%;
+	margin-right: 1%;
+	margin-top: 25px;
+}
+
+
+
+.pr_img {
+	width: 100%;
+	height: 70%;
+	box-sizing: border-box;
+	border: 1px solid black;
+}
+
+.pr_detail {
+	width: 100%;
+	height: 30%;
+	box-sizing: border-box;
+	border: 1px solid black;
+}
+
+.pr_detail_top {
+	width: 100%;
+	height: 30%;
+	box-sizing: border-box;
+	border: 1px solid black;
+}
+
+.pr_detail_top_left {
+	width: 50%;
+	height: 100%;
+	box-sizing: border-box;
+	border: 1px solid black;
+	float: left;
+}
+
+.pr_detail_top_center {
+	width: 30%;
+	height: 100%;
+	box-sizing: border-box;
+	border: 1px solid black;
+	float: left;
+}
+
+
+.pr_detail_top_right {
+	width: 20%;
+	height: 100%;
+	box-sizing: border-box;
+	border: 1px solid black;
+	float: left;
+}
+
+
+.pr_detail_bottom {
+	width: 100%;
+	height: 70%;
+	box-sizing: border-box;
+	border: 1px solid black;
+}
+
+
+
+
+
+
+
+
+
+
+/* 리모컨 */
+#cover {
+	position: fixed;
+	width: auto;
+	right: 0%;
+	height: 100%;
+	top: 0%;
+	display: none;
+	color: black;
+	text-align: center;
+	line-height: 100%;
+	overflow: hidden;
+	text-decoration: none;
+}
+
+#remoCon {
+	/*position: fixed;*/
+	width: 150px;
+	right: 0%;
+	height: 90%;
+	margin-top: 25%;
+	/* background-color: #706c6c; */
+	float: right;
+	display: inline-block;
+	overflow: hidden;
+	color: white;
+	border-radius:10px;
+	background-image: url(../teamIMG/back/mirrored_squares.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.in_out {
+	position: relative;
+	top: 50%;
+	left: 0;
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+}
+
+#sidecontent {
+	width: 100%;
+	height: 4%;
+	text-align: center;
+	line-height: 35px;
+}
+
+#rc_logo {
+	box-sizing: border-box;
+	width: 100%;
+	height: 17%;
+	float: left;
+	margin-bottom: 25%;
+}
+
+.rc_bar1 {
+	box-sizing: border-box;
+	width: 100%;
+	height: 5%;
+	float: left;
+	color: white;
+	padding-top: 10px;
+}
+
+.rc_bar2 {
+	box-sizing: border-box;
+	width: 100%;
+	height: 18%;
+	float: left;
+}
+
+.rc_bar3 {
+	box-sizing: border-box;
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+	width: 100%;
+	height: 20%;
+	float: left;
+	padding-top: 5px;
+}
+
+#gong {
+	box-sizing: border-box;
+	width: 100%;
+	height: 25.5%;
+	float: left;
+}
+
+.six_block {
+	box-sizing: border-box;
+	border: 1px solid gray;
+	width: 50%;
+	height: 33%;
+	float: left;
+}
+
+#updown {
+	box-sizing: border-box;
+	width: 100%;
+	height: 4%;
+	line-height: 4%;
+	float: left;
+	bottom: 0%;
+	position: relative;
+	color: black;
+}
+
+.updown_btn {
+	width: 40%;
+	height: 90%;
+	margin-top: 60%;
+	border-radius: 5px;
+}
+
+/* 무한스크롤 */
+#container2 {
+	height: 5000px;
+	/* background */
+	-color: gray;
+}
+
+#content {
+	height: 5000px;
+}
+
+#container2 span {
+	color: white;
+}

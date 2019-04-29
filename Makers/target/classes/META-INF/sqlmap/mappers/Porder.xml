@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Porder">
+	<resultMap type="Porder" id="PorderResult">
+		<result property="ornum" column="ornum"/>
+		<result property="orname" column="orname"/>
+		<result property="oraddr" column="oraddr"/>
+		<result property="orpost" column="orpost"/>
+		<result property="orphone" column="orphone"/>
+		<result property="mid" column="mid"/>
+		<result property="ordate" column="ordate"/>
+		
+
+	</resultMap>
+
+	<!-- 주문생성 -->
+	<insert id="porderInsert">
+		INSERT INTO PORDER (ORNUM,MID,ORNAME,ORADDR,ORPHONE) VALUES(PORDER_SEQ.NEXTVAL,#{mid},#{orname},#{oraddr},#{orphone})
+	</insert>
+	<!-- 주문정보변경 -->
+	<update id="porderWrite">
+		UPDATE PORDER SET ORNAME = #{orname},ORADDR=#{oraddr},ORPHONE=#{orphone} WHERE ORNUM = #{ornum} AND MID=#{mid}
+	</update>
+	<!-- 주문 완료 리스트 -->
+	<select id="porderList" resultMap="PorderResult">
+		SELECT * FROM ( SELECT ROWNUM RN , A.* FROM (SELECT * FROM PORDER WHERE MID=#{mid} ORDER BY ORNUM)A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 주문완료 개수 -->
+	<select id="porderListCnt" resultType="int">
+		SELECT COUNT(*) FROM PORDER WHERE MID=#{mid}
+	</select>
+	<!--  -->
+	<select id="porderSelect" resultType="Porder" >
+		SELECT * FROM (SELECT ROWNUM RN , A.* FROM (SELECT * FROM PORDER WHERE MID=#{mid} ORDER BY ORNUM DESC)A) WHERE RN =1
+	</select>
+	<!--  -->
+	<select id="porderView">
+		SELECT * FROM PORDER WHERE ORNUM =#{ornum}
+	</select>
+</mapper>

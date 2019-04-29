@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias alias="Member" type="com.tj.makers.model.Member"/>
+		<typeAlias alias="Admin" type="com.tj.makers.model.Admin"/>
+		<typeAlias alias="Message" type="com.tj.makers.model.Message"/>
+		<typeAlias alias="Prcomment" type="com.tj.makers.model.Prcomment"/>
+		<typeAlias alias="Auction" type="com.tj.makers.model.Auction"/>
+		<typeAlias alias="MakeOrder" type="com.tj.makers.model.MakeOrder"/>
+		
+		<typeAlias alias="QnA" type="com.tj.makers.model.QnA"/>
+		<typeAlias alias="ItemBoard" type="com.tj.makers.model.ItemBoard"/>
+		<typeAlias alias="ItemColor" type="com.tj.makers.model.ItemColor"/>
+		<typeAlias alias="Items" type="com.tj.makers.model.Items"/>
+		<typeAlias alias="Product" type="com.tj.makers.model.Product"/>
+		<typeAlias alias="Cart" type="com.tj.makers.model.Cart"/>
+		<typeAlias alias="Porder" type="com.tj.makers.model.Porder"/>
+		
+		
+		<typeAlias alias="FreeBoard" type="com.tj.makers.model.FreeBoard"/>
+		<typeAlias alias="FbComment" type="com.tj.makers.model.FbComment"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="META-INF/sqlmap/mappers/Member.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/Admin.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/Message.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/Prcomment.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/Auction.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/MakeOrder.xml"/>
+		
+		<mapper resource="META-INF/sqlmap/mappers/qnaModel.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/itemBoard.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/items.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/itemColor.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/Product.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/Product.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/Cart.xml"/>
+		
+		<mapper resource="META-INF/sqlmap/mappers/Freeboard.xml"/>
+		<mapper resource="META-INF/sqlmap/mappers/FbComment.xml"/>
+	</mappers>
+</configuration>

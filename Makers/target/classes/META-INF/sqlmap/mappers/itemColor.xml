@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="ItemColor"> <!-- ItemColor 맵퍼 -->
+    	<resultMap type="ItemColor" id="ItemColorResult">
+    		<result column="itcnum" property="itcnum"/>
+    		<result column="ibnum" property="ibnum"/>
+    		<result column="itcolor" property="itcolor"/>
+    	</resultMap>
+    	
+    	<select id="chkSeq" resultType="int">
+    		SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'IB_SEQ'
+    	</select>
+    	
+    	<select id="itemColorList" resultMap="ItemColorResult" parameterType="ItemColor">
+    		SELECT * FROM ITEMCOLOR WHERE IBNUM = #{ibnum}
+    	</select>
+<!-- ******************************insert******************************  -->
+    	<insert id="itemColorWrite">
+    		INSERT INTO ITEMCOLOR VALUES(ITC_SEQ.NEXTVAL,#{ibnum},#{itcolor})
+    	</insert>
+
+<!-- ******************************delete******************************  -->
+    	<delete id="itemColorDelete">
+    		DELETE FROM ITEMCOLOR WHERE IBNUM =#{ibnum}
+    	</delete>
+    </mapper>

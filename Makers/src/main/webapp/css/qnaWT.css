@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+.qnaCT {
+	box-sizing: border-box;
+	width: 45%;
+	margin-top: 2%;
+}
+
+.qnaWT {
+	box-sizing: border-box;
+	width: 100%;
+}
+
+.qnart_btn {
+	width: 15%;
+	display: inline-block;
+	vertical-align: middle;
+	min-width: 60px;
+	height: 30px;
+	margin: 0;
+	padding: 0 15px;
+	border: #222 solid 1px;
+	border-radius: 3px;
+	color: #222;
+	line-height: 30px;
+	text-decoration: none;
+	float: right;
+	margin-right: 5px;
+}
+
+.qnart_btn.focus {
+	background: linear-gradient(to bottom, gray, black);
+	color: white;
+}
+
+.qnart_btn.focus:hover {
+	background: linear-gradient(to bottom, white, lightgray);
+	color: #333;
+}

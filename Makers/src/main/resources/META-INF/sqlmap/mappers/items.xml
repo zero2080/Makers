@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="Items"> <!-- ItemBoard 맵퍼 -->
+    	<resultMap type="Items" id="ItemsResult">
+    		<result column="itnum" property="itnum"/>
+    		<result column="itcategory" property="itcategory"/>
+    		<result column="itname" property="itname"/>
+    		<result column="itimg" property="itimg"/>
+    		<result column="itdate" property="itdate"/>
+    		<result column="ibnum" property="ibnum"/>
+    	</resultMap>
+    	
+    	
+    	<select id="itemsView" resultMap="ItemsResult" parameterType="Items">
+    		SELECT * FROM ITEMS WHERE ITNUM =#{itnum}
+    	</select>
+    	<select id="itemsList" resultMap="ItemsResult" parameterType="Items">
+    	SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT I.*, NVL(CNT,0) CNT FROM ITEMS I,(SELECT COUNT(*) CNT,IBNUM FROM ITEMCOLOR GROUP BY IBNUM) C WHERE I.IBNUM = C.IBNUM(+) 
+    	<if test="choose==1">AND UPPER(ITNAME) LIKE '%'||UPPER(#{insert})||'%'</if>
+    	<if test="choose==2">AND ITNUM = #{insert}</if> 
+    	ORDER BY ITNUM DESC )A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+    		
+    	</select>
+    	<select id="itemsCnt" resultType="int">
+    		SELECT COUNT(*) FROM ITEMS 
+			<if test="choose==1">WHERE UPPER(ITNAME) LIKE '%'||UPPER(#{insert})||'%'</if>
+    		<if test="choose==2">WHERE ITNUM= #{insert}</if>
+    	</select>
+<!-- ******************************insert******************************  -->
+    	<insert id="itemsWrite">
+    		INSERT INTO ITEMS (ITNUM,ITNAME,ITCATEGORY,ITIMG,IBNUM) VALUES(ITEMS_SEQ.NEXTVAL,#{itname},#{itcategory},#{itimg},#{ibnum})
+    	</insert>
+<!-- ******************************delete******************************  -->
+    	<delete id="itemsDelete">
+    		DELETE FROM ITEMS WHERE ITNUM=#{itnum}
+    	</delete>
+    </mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Auction">
+<!-- 쿼리 결과가 담길 객체 -->
+	<resultMap type="Auction" id="AuctionResult">
+		<result property="acnum" column="acnum"/>
+		<result property="mid" column="mid"/>
+		<result property="mrnum" column="mrnum"/>
+		<result property="acprice" column="acprice"/>
+		<result property="acdate" column="acdate"/>
+		<result property="acstatus" column="acstatus"/>
+		<result property="actimelimit" column="actimelimit"/>
+		<result property="mid2" column="mid2"/>
+		<result property="mname" column="mname"/>
+		<result property="mgrade" column="mgrade"/>
+		<result property="mbank" column="mbank"/>
+		<result property="maccount" column="maccount"/>
+		<result property="macname" column="macname"/>
+		<result property="sort" column="sort"/>
+		<result property="mrdate" column="mrdate"/>
+		<result property="mrenddate" column="mrenddate"/>
+		<result property="mrtimelimit" column="mrtimelimit"/>
+	</resultMap>
+	
+	<!--입찰하기( ID = insertBidding) -->
+	<insert id="insertBidding" parameterType="Auction">
+        INSERT INTO AUCTION (ACNUM , MID , MID2 , MRNUM , ACPRICE , ACDATE , ACSTATUS , ACTIMELIMIT) 
+            		VALUES (AUCTION_SEQ.NEXTVAL,#{mid},#{mid2},#{mrnum},#{acprice},SYSDATE,0,TO_DATE(#{actimelimit},'yyyy-MM-dd'))
+	</insert>
+	<!--입찰내용 수정( ID = modifyBid )-->
+	<update id="modifyBid" parameterType="Auction">
+		UPDATE AUCTION SET ACPRICE=#{acprice}, ACDATE=SYSDATE, ACTIMELIMIT=#{actimelimit} WHERE ACNUM=#{acnum}
+	</update>
+	<!--입찰 철회 -->
+	<delete id="delBid" parameterType="Auction">
+		DELETE AUCTION WHERE ACNUM = #{acnum}
+	</delete>
+	<!--입찰자 확정 후 비활성( ID = confirmBid )-->
+	<update id="degreeBid" parameterType="Auction">
+		UPDATE AUCTION SET ACSTATUS = -1 WHERE MRNUM = #{mrnum}
+	</update>
+	<!--디자이너 입찰자 확정 ( ID = confirmBid )-->
+	<update id="confirmBid" parameterType="Auction">
+		UPDATE AUCTION SET ACSTATUS = 1 WHERE ACNUM = #{acnum}
+	</update>
+	<!--디자이너 입찰자 확정취소 ( ID = retractBid )-->
+	<update id="retractBid" parameterType="Auction"> 
+		UPDATE AUCTION SET ACSTATUS = 0 WHERE MRNUM = #{mrnum}
+	</update>
+	<!--제작자 제작요청 승인 (ID = confirmOrder ) -->
+	<update id="confirmOrder" parameterType="Auction">
+		UPDATE AUCTION SET ACSTATUS = 2 WHERE ACNUM = #{acnum}
+	</update>
+	<!--제작자 납품 배송처리-->
+	<update id="deliveryResult" parameterType="Auction">
+		UPDATE AUCTION SET ACSTATUS = 3 WHERE ACNUM = #{acnum}
+	</update>
+	<!--납품 완료 처리 -->
+	<update id="takeResult" parameterType="Auction">
+		UPDATE AUCTION SET ACSTATUS = 4 WHERE ACNUM = #{acnum}
+	</update>
+	<!-- 최저입찰가 -->
+	<select id="minPrice" parameterType="Auction" resultType="int">
+		SELECT NVL(MIN(ACPRICE),0) FROM AUCTION WHERE MRNUM=#{mrnum}
+	</select>
+	<!--입찰 목록 ( ID = bidList ) 페이징 안함 정렬 기능 추가(가격, 입찰일, 등급) = 오름/내림 -->
+	<select id="bidList" parameterType="Auction" resultMap="AuctionResult">
+		SELECT A.*,MGRADE FROM (
+			SELECT AC.*,MNAME,MPOINT,MBANK,MACCOUNT,MACNAME FROM MEMBER M, (
+				SELECT AU.*, MRDATE, MRENDDATE, MRTIMELIMIT FROM MAKEORDER MO, AUCTION AU WHERE MO.MRNUM=AU.MRNUM
+				) AC WHERE MRNUM=#{mrnum} AND M.MID=AC.MID2
+			) A, GRADE G WHERE A.MPOINT BETWEEN LPOINT AND HPOINT ORDER BY ACSTATUS DESC,
+			<choose>
+				<when test="sort == 0"><!--번호순 오름차순(0)-->
+					ACNUM
+				</when>
+				<when test="sort == 1"><!--입찰일 오름차순(1)-->
+					ACDATE
+				</when>
+				<when test="sort == 2"> <!--입찰일 내림차순(2)-->
+					ACDATE DESC
+				</when>
+				<when test="sort == 3">  <!--입찰가 오름차순(3)-->
+					ACPRICE
+				</when>
+				<when test="sort == 4"> <!--입찰가 내림차순(4)-->
+					ACPRICE DESC
+				</when>
+				<when test="sort == 5">  <!--등급별 오름(5) -->
+					MGRADE
+				</when>
+				<when test="sort == 6"> <!--등급별 내림(6)  -->
+					MGRADE DESC		
+				</when>
+			</choose>
+	</select>
+</mapper>

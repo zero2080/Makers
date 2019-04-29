@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+.boardViewCT {
+	margin-top: 2%;
+}
+
+#comment_WBox {
+	position: relative;
+	margin-top: 30px;
+	width: 50%!important;
+	left: 50%;
+	margin-left: -437px;
+}
+
+.ctw_left {
+	width: 70%;
+}
+
+.ctw_right {
+	width: 10%;
+}
+
+.ctw_right span{
+	font-size: 1.7em;
+}
+
+
+
+.board_btn {
+	width: 10%;
+	display: inline-block;
+	vertical-align: middle;
+	min-width: 60px;
+	height: 40px;
+	margin: 0;
+	padding: 0 15px;
+	border: #222 solid 1px;
+	border-radius: 3px;
+	color: #222;
+	line-height: 38px;
+	text-decoration: none;
+	float: right;
+	margin-right: 0.3%;
+	margin-top: 20px;
+	margin-bottom: 70px;
+}
+
+.board_btn.focus {
+	background: linear-gradient(to bottom, gray, black);
+	color: white;
+}
+
+.board_btn.focus:hover {
+	background: linear-gradient(to bottom, white, lightgray);
+	color: #333;
+}

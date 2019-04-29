@@ -1,0 +1,337 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style:none;
+}
+
+#back_img {
+	background-image: url(../teamIMG/light-veneer.png);
+}
+
+#container {
+	margin-top: 0;
+	width: 100%;
+}
+
+#top_img {
+	margin-top: 0px;
+	width: 100%;
+	height: 300px;
+	text-align: center;
+	line-height: 300px;
+	font-size: 4em;
+	background-image: url(../teamIMG/칠판1.jpg);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	color: white;
+}
+
+#content1 {
+	width: 100%;
+	height: 1000px;
+	/* background-color: white; */
+	position: relative;
+	margin-top: 0;
+}
+
+/* #content1 h1 {
+	text-align: center;
+	margin-top: 0px;
+	font-size: 50px;
+	padding-top: 70px;
+	padding-bottom: 70px;
+}
+ */
+#mk_bar {
+	width: 100%;
+	height: 50px;
+	/* background-color: #706c6c; */
+	box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.5);
+	background-image: url(../teamIMG/나무1.jpg);
+}
+
+#slide1 {
+	width: 1400px;
+	height: 1600px;
+	left: 50%;
+	margin-left: -700px;
+	margin-top: 30px;
+	position: absolute;
+	/* background-color: white; */
+	overflow: hidden;
+	box-sizing: border-box;
+	/* border: 1px solid black; */
+}
+
+#slide2 {
+	width: 70%;
+	height: 100%;
+	background-color: white;
+	float: left;
+	box-sizing: border-box;
+	border: 1px solid black;
+}
+
+.mini {
+	float: left;
+	width: 14.3%;
+	height: 33%;
+	margin: 0% 0% 0% 0.5%;
+	background-color: white;
+	box-sizing: border-box;
+	border: 1px solid black;
+}
+
+.mini:nth-child(4) {
+	margin-top: 0.5%;
+}
+
+.mini:nth-child(5) {
+	margin-top: 0.5%;
+}
+
+.big {
+	float: left;
+	width: 29.1%;
+	height: 31.7%;
+	margin: 0.5% 0% 0% 0.5%;
+	background-color: white;
+	box-sizing: border-box;
+	border: 1px solid black;
+}
+
+#content2 {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	/* background-color: gray; */
+}
+
+#category_bar {
+	height: 40px;
+	width: 70%;
+	margin-left: 15%;
+	margin-top: 50px;
+	margin-bottom: 20px;
+	background-color: lightgray;
+	overflow: hidden;
+	line-height: 40px;
+	text-align: center;
+	text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.category_btn {
+	width: 20%;
+	height: 40px;
+	float: left;
+}
+
+.longbox {
+	width: 50%;
+	height: 450px;
+	margin-left: 25%;
+	margin-top: 50px;
+}
+
+.long {
+	width: 32%;
+	height: 400px;
+	float: left;
+	background-color: lightgray;
+}
+
+.long:first-child {
+	margin-left: 1%;
+	margin-top: 25px;
+}
+
+.long:nth-child(2) {
+	margin-left: 1%;
+	margin-top: 25px;
+}
+
+.long:last-child {
+	margin-left: 1%;
+	margin-right: 1%;
+	margin-top: 25px;
+}
+
+/* 리모컨 */
+#cover {
+	position: fixed;
+	width: auto;
+	right: 0%;
+	height: 100%;
+	top: 0%;
+	display: none;
+	color: black;
+	text-align: center;
+	line-height: 100%;
+	overflow: hidden;
+}
+
+#remoCon {
+	/*position: fixed;*/
+	width: 150px;
+	right: 0%;
+	height: 100%;
+	background-color: #706c6c;
+	float: right;
+	display: inline-block;
+	overflow: hidden;
+	color: white;
+}
+
+.in_out {
+	position: relative;
+	top: 50%;
+	left: 0;
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+}
+
+#sidecontent {
+	width: 100%;
+	height: 4%;
+	text-align: center;
+	line-height: 35px;
+}
+
+#rc_logo {
+	box-sizing: border-box;
+	border: 1px solid red;
+	width: 100%;
+	height: 25%;
+	float: left;
+	margin-bottom: 25%;
+}
+
+.rc_bar1 {
+	box-sizing: border-box;
+	border: 1px solid blue;
+	width: 100%;
+	height: 5%;
+	float: left;
+}
+
+.rc_bar2 {
+	box-sizing: border-box;
+	border: 1px solid green;
+	width: 100%;
+	height: 18%;
+	float: left;
+}
+
+.rc_bar3 {
+	box-sizing: border-box;
+	border: 1px solid purple;
+	width: 100%;
+	height: 20%;
+	float: left;
+}
+
+#gong {
+	box-sizing: border-box;
+	border: 1px solid green;
+	width: 100%;
+	height: 25.5%;
+	float: left;
+}
+
+.six_block {
+	box-sizing: border-box;
+	border: 1px solid red;
+	width: 50%;
+	height: 33%;
+	float: left;
+}
+
+#updown {
+	box-sizing: border-box;
+	border: 1px solid pink;
+	width: 100%;
+	height: 4%;
+	line-height: 4%;
+	float: left;
+	bottom: 0%;
+	position: relative;
+}
+
+.updown_btn {
+	width: 40%;
+	height: 90%;
+}
+
+/* 무한스크롤 */
+#container2 {
+	height: 5000px;
+	/* background */-color: gray;
+}
+
+#content {
+	height: 5000px;
+}
+
+#container2 span {
+	color: white;
+}
+
+
+
+
+
+/*슬라이드*/
+
+#bannerWrap {
+	position: relative;
+	width: 1500px;
+	border: 1px solid green;
+	display: inline-block;
+	margin: 0 auto;
+}
+
+#banner {
+	float: left;
+	margin: 0 auto;
+}
+
+#banner img {
+	height: 415px;
+	width: 100%;
+}
+
+#banner_bt {
+	list-style-type: none;
+	bottom: 5px;
+	left: 5px;
+	overflow: hidden;
+	right: 5px;
+	position: relative;
+	top: 0;
+	float: left;
+	width: 450px;
+	height: 100%;
+}
+
+#banner_bt li {
+	float: left;
+	padding: 3px 6px;
+	margin-right: 5px;
+	width: 200px;
+	height: 200px;
+}
+
+#banner_bt li img {
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+a, a:hover, a:visited {
+	text-decoration: none;
+}
+
+.long {
+	
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Cart">
+<!-- 쿼리 결과가 담길 객체 -->
+	<resultMap type="Cart" id="CartResult">
+		<result property="ctnum" column="ctnum"/>
+		<result property="ctcount" column="ctcount"/>
+		<result property="mid" column="mid"/>
+		<result property="pnum" column="pnum"/>
+		<result property="ornum" column="ornum"/>
+		<result property="ctstate" column="ctstate"/>
+	</resultMap>
+	
+	<!-- 카트생성 -->
+	<insert id="cartInsert">
+		INSERT INTO CART (CTNUM,CTCOUNT,MID,PNUM<if test="ctstate == 3">,CTSTATE</if>) VALUES (CT_SEQ.NEXTVAL,#{ctcount},#{mid},#{pnum}<if test="ctstate == 3">,3</if>)
+	</insert>
+	<!-- 목록보기 -->
+	<select id="cartView" resultMap="CartResult">
+		SELECT * FROM (SELECT ROWNUM RN,A.* FROM (SELECT P.PRICE,PCOUNT,PTITLE,MRTITLE,MRIMG,C.CTNUM,C.CTCOUNT,C.MID,C.PNUM,C.ORNUM,C.CTSTATE  FROM CART C, (SELECT PRICE,PCOUNT,PTITLE,MRTITLE,MRIMG,P.PNUM FROM PRODUCT P , MAKEORDER M WHERE P.MRNUM = M.MRNUM)P WHERE C.PNUM = P.PNUM AND C.MID=#{mid} AND CTSTATE=#{ctstate} <if test="ornum != 0">AND ORNUM = #{ornum}</if> ORDER BY CTNUM DESC)A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 전체 아이템수 -->
+	<select id="cartCnt" resultType="int">
+		SELECT COUNT(*) FROM CART WHERE CTSTATE= #{ctstate} AND MID=#{mid} <if test="ornum != 0">AND ORNUM=#{ornum}</if>
+	</select>
+	<!-- 일치여부 확인 -->
+	<select id="cartChk" resultType="Cart">
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT C.CTNUM,C.CTCOUNT,C.MID,C.PNUM,C.ORNUM,C.CTSTATE,P.PRICE,P.PCOUNT,P.PTITLE,P.MRTITLE,P.MRIMG FROM CART C,(SELECT PRICE,PCOUNT,PTITLE,MRTITLE,MRIMG,P.PNUM FROM PRODUCT P , MAKEORDER M WHERE P.MRNUM = M.MRNUM)P WHERE C.PNUM= P.PNUM AND C.PNUM= #{pnum} AND CTSTATE = #{ctstate} AND C.MID=#{mid} ORDER BY C.CTNUM DESC)A) WHERE RN =1
+	</select>
+	<!-- 수량 변경 -->
+	<update id="cartCountUp">
+		UPDATE CART SET CTCOUNT = #{ctcount} WHERE PNUM = #{pnum} AND CTSTATE=0 AND MID=#{mid}
+	</update>
+	<!-- 삭제 -->
+	<delete id="cartDelete">
+		DELETE FROM CART WHERE MID=#{mid} <if test="ctnum != 0">AND CTNUM = #{ctnum}</if><if test="ctnum == 0">AND PNUM = #{pnum} AND CTSTATE=0 </if>
+	</delete>
+	<!-- 전체삭제 -->
+	<delete id="cartDeleteAll">
+		DELETE FROM CART WHERE MID = #{mid} AND CTSTATE=0
+	</delete>
+	<!-- 바로구매시 구매제품만 가져오기 -->
+	<select id="cartSelect" resultType="Cart">
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT  C.CTNUM,C.CTCOUNT,C.MID,C.PNUM,C.ORNUM,C.CTSTATE,P.PRICE,P.PCOUNT,P.PTITLE,P.MRTITLE,P.MRIMG FROM CART C,(SELECT PRICE,PCOUNT,PTITLE,MRTITLE,MRIMG,P.PNUM FROM PRODUCT P , MAKEORDER M WHERE P.MRNUM = M.MRNUM)P WHERE C.MID = #{mid} ORDER BY C.CTNUM DESC)A) WHERE RN =1
+	</select>
+	<!-- 주문완료변경 -->
+	<update id="cartOver">
+		UPDATE CART SET ORNUM = #{ornum},CTSTATE =1,PRICE=#{price} WHERE CTNUM =#{ctnum}
+	</update>
+	<!-- 완료된 상품 상세보기시 가져오기 -->
+	<select id="cartGet" resultMap="CartResult">
+		SELECT A.* FROM (SELECT C.CTNUM,C.CTCOUNT,C.MID,C.PNUM,C.ORNUM,C.CTSTATE,P.PRICE,P.PCOUNT,P.PTITLE,P.MRTITLE,P.MRIMG FROM CART C,(SELECT PRICE,PCOUNT,PTITLE,MRTITLE,MRIMG,P.PNUM FROM PRODUCT P , MAKEORDER M WHERE P.MRNUM = M.MRNUM)P WHERE C.PNUM= P.PNUM ORDER BY C.CTNUM DESC)A WHERE ORNUM =#{ornum} AND MID=#{mid}
+	</select>
+	<!--  -->
+	<select id="cartGetToNum" resultType="Cart">
+		SELECT A.* FROM (SELECT C.CTNUM,C.CTCOUNT,C.MID,C.PNUM,C.ORNUM,C.CTSTATE,P.PRICE,P.PCOUNT,P.PTITLE,P.MRTITLE,P.MRIMG FROM CART C,(SELECT PRICE,PCOUNT,PTITLE,MRTITLE,MRIMG,P.PNUM FROM PRODUCT P , MAKEORDER M WHERE P.MRNUM = M.MRNUM)P WHERE C.PNUM= P.PNUM ORDER BY C.CTNUM DESC)A WHERE CTNUM=#{ctnum}
+	</select>
+	<!-- STATE 3인거 다 불러오기 -->
+	<select id="cartGetNum3" resultMap="CartResult" >
+		SELECT A.* FROM (SELECT C.CTNUM,C.CTCOUNT,C.MID,C.PNUM,C.ORNUM,C.CTSTATE,P.PRICE,P.PCOUNT FROM CART C,(SELECT PRICE,PCOUNT,PTITLE,MRTITLE,MRIMG,P.PNUM FROM PRODUCT P , MAKEORDER M WHERE P.MRNUM = M.MRNUM)P WHERE C.PNUM= P.PNUM ORDER BY C.CTNUM DESC)A WHERE CTSTATE=3 AND MID=#{mid}
+	</select>
+	<!-- 이미 있는 지 확인하기  -->
+	<select id="cartSameChk" resultType="Cart">
+		SELECT A.* FROM (SELECT C.CTNUM,C.CTCOUNT,C.MID,C.PNUM,C.ORNUM,C.CTSTATE,P.PRICE,P.PCOUNT FROM CART C,(SELECT * FROM MAKEORDER M, PRODUCT P WHERE P.MRNUM = M.MRNUM)P WHERE C.PNUM= P.PNUM ORDER BY C.CTNUM DESC)A WHERE CTSTATE=0 AND MID=#{mid} AND PNUM = #{pnum}
+	</select>
+	<!-- 3을 0으로 만드는 마법 -->
+	<select id="cartChangeNum">
+		UPDATE CART SET CTSTATE = 0 WHERE CTNUM = #{ctnum}
+	</select>
+	<!-- 3다지움 -->
+	<select id="cartNum3DeleteAll">
+		DELETE FROM CART WHERE CTSTATE =3
+	</select>
+</mapper>

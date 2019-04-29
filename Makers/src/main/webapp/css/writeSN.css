@@ -1,0 +1,57 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+
+#container {
+	text-align: center;
+}
+
+#container .subject {
+	width: 500px;
+}
+
+#container .pcount {
+	width: 100px;
+}
+
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
+	{
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+#container .form-group {
+	width: 800px;
+	margin: 0 auto;
+}
+
+#container .bf {
+	height: 20px;
+}
+
+#container .submit {
+	margin: 0 auto;
+}
+
+#container .submit .button {
+	margin: 0 auto;
+}
+
+#file {
+	width: 400px;
+	margin: 0 auto;
+}
+
+#file input {
+	margin: 10px auto;
+}
+
+#file .sumNail {
+	border: 1px solid black;
+	width: 400px;
+	height: 100px;
+}

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MakeOrder">
+	<resultMap type="MakeOrder" id="MakeOrderResult">
+		<result property="mrnum" column="mrnum"/>
+		<result property="mrtitle" column="mrtitle"/>
+		<result property="mid" column="mid"/>
+		<result property="mrcount" column="mrcount"/>
+		<result property="mrdate" column="mrdate"/>
+		<result property="mrenddate" column="mrenddate"/>
+		<result property="mrtimelimit" column="mritmelimit"/>
+		<result property="mrimg" column="mrimg"/>
+		<result property="mrcontent" column="mrcontent"/>
+		<result property="mrstatus" column="mrstatus"/>
+	</resultMap>
+	<!-- 경매 리스트 -->
+	<select id="getMorderAllPaging" parameterType="MakeOrder" resultMap="MakeOrderResult">
+		SELECT * FROM (
+			SELECT ROWNUM RN, MO.* FROM (
+				SELECT * FROM MAKEORDER ORDER BY MRDATE DESC) MO ) WHERE RN BETWEEN #{startRow} AND #{endRow} 
+	</select>
+	
+	<!-- 주문 1개 정보 가져오기 -->
+	<select id="getMorder" parameterType="int" resultType="MakeOrder">
+		SELECT * FROM MAKEORDER WHERE MRNUM=#{mrnum}
+	</select>
+	<!-- 총 입찰 갯수 -->
+	<select id="totMorderCnt" resultType="int">
+		SELECT COUNT(*) FROM MAKEORDER
+	</select>
+	<!-- 제작자 선정 완료 -->
+	<update id="confirmMOrder" parameterType="int">
+		UPDATE MAKEORDER SET MRSTATUS=1 WHERE MRNUM=#{mrnum}
+	</update>
+	<!-- 제작자 거래 승인 -->
+	<update id="confirmMOrder2" parameterType="int">	
+		UPDATE MAKEORDER SET MRSTATUS=2 WHERE MRNUM=#{mrnum}
+	</update>
+	<!-- 제작자 배송 처리 -->
+	<update id="confirmMOrder3" parameterType="int">	
+		UPDATE MAKEORDER SET MRSTATUS=3 WHERE MRNUM=#{mrnum}
+	</update>
+	<!-- 요청자 수령 완료 -->
+	<update id="confirmMOrder4" parameterType="int">	
+		UPDATE MAKEORDER SET MRSTATUS=4 WHERE MRNUM=#{mrnum}
+	</update>
+	<!-- 입찰 취소 상태 초기화 -->
+	<update id="returnOrder" parameterType="int">
+		UPDATE MAKEORDER SET MRSTATUS=0 WHERE MRNUM=#{mrnum}
+	</update>
+	<!-- 입찰 취소 상태 초기화 -->
+	<update id="dropOrder" parameterType="int">
+		UPDATE MAKEORDER SET MRSTATUS=-1 WHERE MRNUM=#{mrnum}
+	</update>
+	<!-- 제작 요청 (경매등록)-->
+	<insert id="insertOrder" parameterType="MakeOrder">
+		INSERT INTO MAKEORDER (MRNUM, MID, MRTITLE, MRCONTENT, MRCOUNT, MRDATE, MRENDDATE, MRTIMELIMIT, MRIMG, MRSTATUS)
+    		VALUES (MAKEORDER_SEQ.NEXTVAL, #{mid},#{mrtitle},#{mrcontent},0,SYSDATE,#{mrenddate},#{mrtimelimit},#{mrimg},0)
+	</insert>
+	<!-- 나의 제작 리스트 가져오기 -->
+		<select id="myMorderList" resultMap="MakeOrderResult">
+			SELECT * FROM (SELECT ROWNUM RN, MO.* FROM (SELECT * FROM MAKEORDER WHERE MID=#{mid} ORDER BY MRDATE DESC) MO ) WHERE RN BETWEEN #{startRow} AND #{endRow} 
+		</select>
+	<!-- 나의 제작리스트 총 개수 -->
+		<select id="myCntMorder" resultType="int">
+			SELECT COUNT(*) FROM MAKEORDER WHERE MID=#{mid} 
+		</select>
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="Product"> <!-- ItemBoard 맵퍼 -->
+    	<resultMap type="Product" id="ProductResult">
+    		<result column="pnum" property="pnum"/>
+    		<result column="ptitle" property="ptitle"/>
+    		<result column="pcategory" property="pcategory"/>
+    		<result column="pcontent" property="pcontent"/>
+    		<result column="pcount" property="pcount"/>
+    		<result column="preadcount" property="preadcount"/>
+    		<result column="mid" property="mid"/>
+    		<result column="mrnum" property="mrnum"/>
+    		<result column="price" property="price"/>
+    		<result column="pstate" property="pstate"/>
+    	</resultMap>
+    	
+    	
+    	<select id="productView" resultMap="ProductResult" parameterType="Product">
+    		SELECT * FROM PRODUCT WHERE PNUM=#{pnum}
+    	</select>
+    	<select id="productList" resultMap="ProductResult" parameterType="Product">
+    	SELECT * FROM (SELECT ROWNUM RN, A.* FROM(SELECT * FROM PRODUCT ORDER BY PNUM DESC)A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+    		
+    	</select>
+    	<select id="productCnt" resultType="int">
+    		SELECT COUNT(*) FROM PRODUCT
+    	</select>
+<!-- ******************************insert******************************  -->
+    	<insert id="productWrite">
+    		INSERT INTO PRODUCT VALUES (PR_SEQ.NEXTVAL,#{ptitle},#{pcontent},#{pcount},0,#{pcategory},#{mid},#{mrnum},#{price},0)
+    	</insert>
+<!-- ******************************update******************************  -->
+		<update id="changeCnt">
+			UPDATE PRODUCT SET PCOUNT = #{pcount} WHERE PNUM= #{pnum}
+		</update>
+		<update id="productModify">
+			UPDATE PRODUCT SET <if test="ptitle != null">PTITLE = #{ptitle},</if><if test="pcontent != null"> PCONTENT = #{pcontent},</if><if test="price != null">,PRICE = #{price}</if> PCOUNT=#{pcount} WHERE PNUM=#{pnum}
+		</update>
+		<update id="CntUp">
+			UPDATE PRODUCT SET PREADCOUNT = PREADCOUNT+1 WHERE PNUM =#{pnum}
+		</update>
+		<update id="productTrans">
+			UPDATE PRODUCT SET PSTATE = 1 WHERE PNUM=#{pnum}
+		</update>
+<!-- ******************************delete******************************  -->
+    	<delete id="productDelete">
+    		DELETE FROM PRODUCT WHERE PNUM = #{pnum}
+    	</delete>
+    </mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="FbComment">
+<!-- 쿼리 결과가 담길 객체 -->
+	<resultMap type="FbComment" id="FbCommentResult">
+		<result property="fbcnum" column="fbcnum"/>
+		<result property="mid" column="mid"/>
+		<result property="fbnum" column="fbnum"/>
+		<result property="fbcgroup" column="fbcgroup"/>
+		<result property="fbcstep" column="fbcstep"/>
+		<result property="fbcdate" column="fbcdate"/>
+		<result property="fbccontent" column="fbccontent"/>
+	</resultMap>
+	
+	<!-- 댓글 쓰기 -->
+	<insert id="fbcWrite" parameterType="FbComment">
+		INSERT INTO FBCOMMENT (FBCNUM, MID, FBNUM, FBCGROUP, FBCDATE, FBCCONTENT) 
+        VALUES (FBCOMMENT_SEQ.NEXTVAL, #{mid}, #{fbnum}, FBCOMMENT_SEQ.CURRVAL, SYSDATE, #{fbccontent})
+	</insert>
+	
+	
+	<!-- 댓글 목록 -->
+	<select id="fbcList" resultMap="FbCommentResult" parameterType="FbComment">
+		SELECT * FROM ( SELECT ROWNUM RN, FBC.* FROM 
+		( SELECT * FROM FBCOMMENT WHERE FBNUM = #{fbnum} ORDER BY FBCGROUP, FBCSTEP) FBC ) 
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	
+	<!-- 댓글 갯수 -->
+	<select id="fbcCount" resultType="int">
+		SELECT COUNT(*) FROM FBCOMMENT WHERE FBNUM = #{fbnum}
+	</select>
+	
+	
+	<!-- 댓글 삭제하기 -->
+	<delete id="fbcDelete" >
+		DELETE FROM FBCOMMENT WHERE FBCNUM= #{fbcnum}
+	</delete>
+	
+</mapper>

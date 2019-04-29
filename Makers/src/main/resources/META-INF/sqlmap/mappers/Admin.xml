@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Admin">
+	<resultMap type="Admin" id="AdminResult">
+		<result property="aid" column="aid"/>
+		<result property="apw" column="apw"/>
+	</resultMap>
+	
+	<select id="getAdmin" resultType="Admin">
+		SELECT * FROM ADMIN WHERE AID=#{aid}
+	</select>
+	<insert id="joinAdmin" parameterType="int">
+		INSERT INTO ADMIN (AID, APW) VALUES (#{aid}, #{apw})
+	</insert>
+</mapper>
