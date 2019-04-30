@@ -69,19 +69,19 @@ li{
 <body>
 <div id ="wrap1">
     <div id="box1">
-      <li><img src="${conPath }/qnaImg/Warframe0005.jpg" alt="1"  /></li>
-     <li><img src="${conPath }/qnaImg/Warframe0006.jpg" alt="2" /></li>
-     <li><img src="${conPath }/qnaImg/Warframe0009.jpg" alt="3" /></li>
-      <li><img src="${conPath }/qnaImg/Warframe0005.jpg" alt="4" /></li>
+      <li><img src="${conPath }/mOrderImage/1.1x1.6.jpg" alt="1"  /></li>
+     <li><img src="${conPath }/mOrderImage/1.3x2.2.jpg" alt="2" /></li>
+     <li><img src="${conPath }/mOrderImage/2.2x1.8.jpg" alt="3" /></li>
+      <li><img src="${conPath }/mOrderImage/2.2X3.jpg" alt="4" /></li>
     </div>
   <div id="main_bn_bt">
   	<div>
-       <li><a href="#1"><img src="${conPath }/qnaImg/Warframe0005.jpg" alt="1" /></a></li>
-       <li><a href="#2"><img src="${conPath }/qnaImg/Warframe0006.jpg" alt="2" /></a></li>
+       <li><a href="#1"><img src="${conPath }/mOrderImage/1.1x1.6.jpg" alt="1" /></a></li>
+       <li><a href="#2"><img src="${conPath }/mOrderImage/1.3x2.2.jpg" alt="2" /></a></li>
     </div>
     <div>
-       <li><a href="#3"><img src="${conPath }/qnaImg/Warframe0009.jpg" alt="3" /></a></li>
-       <li><a href="#4"><img src="${conPath }/qnaImg/Warframe0005.jpg" alt="4" /></a></li>
+       <li><a href="#3"><img src="${conPath }/mOrderImage/2.2x1.8.jpg" alt="3" /></a></li>
+       <li><a href="#4"><img src="${conPath }/mOrderImage/2.2X3.jpg" alt="4" /></a></li>
      </div>
   </div>
 </div>

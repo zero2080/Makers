@@ -35,7 +35,7 @@
 
         <div id="findbox">
             <p>ID(E-Mail)</p>
-            <input type="email" name="mid" id="fmid" class="find_pw">
+            <input type="email" name="mid" id="fmid" class="find_pw" autocomplete="off" >
             <button id="send" class="fpbtn fpfocus">이메일로 임시번호 받기</button>
         </div>
 
