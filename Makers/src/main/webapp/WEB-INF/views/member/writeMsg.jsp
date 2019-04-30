@@ -19,7 +19,6 @@
 					url : '${conPath}/midList.do',
 					datatype : 'html',
 					data : "mid="+mid,
-					type : "POST",
 					success : function(data,status){
 						$('#result').html(data);
 					}

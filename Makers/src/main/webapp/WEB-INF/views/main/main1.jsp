@@ -75,7 +75,33 @@
 
                     <div id="mk_bar"></div>
 
-                   <jsp:include page="test.jsp"></jsp:include>
+                    <div id="slide1">
+                    
+                        <div id="slide2">
+							<img src="${conPath}/teamIMG/악세사리1.jpg" style="width: 100%; height: 100%;"  onclick="location.href='${conPath}/getMorderAllPaging.do'">
+						</div>
+						
+                        <div class="mini">
+                        	<img src="${conPath}/teamIMG/반지1.jpg" style="width: 100%; height: 100%;">
+                        </div>
+                        
+                        <div class="mini">
+                        	<img src="${conPath}/teamIMG/반지2.jpg" style="width: 100%; height: 100%;">
+                        </div>
+                        
+                        <div class="mini">
+                        	<img src="${conPath}/teamIMG/반지3.jpg" style="width: 100%; height: 100%;">
+                        </div>
+                        
+                        <div class="mini">
+                        	<img src="${conPath}/teamIMG/반지4.jpg" style="width: 100%; height: 100%;">
+                        </div>
+                        	
+                        <div class="big">
+                        	<img src="${conPath}/teamIMG/반지7.jpg" style="width: 100%; height: 100%;">
+                        	
+                        </div>
+                    </div>
                 </div>
 
                 <div id="content2">

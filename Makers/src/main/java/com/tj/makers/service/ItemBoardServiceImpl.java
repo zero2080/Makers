@@ -41,7 +41,7 @@ public class ItemBoardServiceImpl implements ItemBoardService {
 	public int itemBoardWrite(MultipartHttpServletRequest mRequest, ItemBoard itemBoard) {
 		// TODO Auto-generated method stub
 		String uploadPath = mRequest.getRealPath("inventory");
-		String backupPath = "C:/Develop/source/makers/Makers/src/main/webapp/inventory/";
+		String backupPath = "C:/Develop/source/makers/Makers/src/main/webapp/mOrderItem/";
 		Iterator<String> params = mRequest.getFileNames();
 		
 		String ibimg="";
@@ -74,7 +74,7 @@ public class ItemBoardServiceImpl implements ItemBoardService {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 				String uploadPath = mRequest.getRealPath("inventory");
-				String backupPath = "C:/Develop/source/makers/Makers/src/main/webapp/inventory/";
+				String backupPath = "C:/Develop/source/makers/Makers/src/main/webapp/mOrderItem/";
 				Iterator<String> params = mRequest.getFileNames();
 				
 				String ibimg="";

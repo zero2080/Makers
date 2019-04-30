@@ -9,119 +9,84 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript" src="${conPath }/js/ulslider/jquery.ulslide.js"></script>
+
 <script>
-	$(window).ready(function() {
-		$(document).ready(function() {
-			var winWidth = document.body.clientWidth;
-			$(function() {
-				$('#banner').ulslide({
-					statusbar : true,
-					direction : 'x',
-					width : 1000,
-					height : 415,
-					effect : {
+var $j = jQuery.noConflict();
+$j(function() {
+    $j('#box1').ulslide({
+         statusbar: true,
+         width: 1050,
+         height: 590.63,
+   		 effect: {
+		    type: 'slide',      //type: 'crossfade' ==> slide, fade, crossfade, rotate, scale, carousel,flip3D, cube3D
+		    distance: 0 
+			 },
+       	 axis: 'x',          // x,y,r(렌덤)
 
-						type : 'slide', //type: 'crossfade' ==> slide, fade, crossfade, rotate, scale, carousel,flip3D, cube3D
-						distance : 0
-					},
-					mousewheel : true,
-					affect : 'slide',
-					axis : 'x',
-					navigator : '#banner_bt a',
-					duration : 300,
-					autoslide : 3000
-				});
-			});
+	        direction: 'f',     // 방향(앞뒤) f, b
+	        duration: 300,
+	        autoslide: 4000,
+	        mousewheel: true,
+	
+	        navigator: '#main_bn_bt a',    // 페이지 선택이동
+	    
+    });
 
-		});
-
-	});
+});
 </script>
 <style>
-#bannerWrap {
-	position: relative;
-	width: 1500px;
-	border: 1px solid green;
-	display: inline-block;
-	margin: 0 auto;
+#wrap1{
+	overflow: hidden;
+	width: 1600px;
 }
-
-#banner {
+#box1{
 	float: left;
-	margin: 0 auto;
 }
-
-#banner img {
-	height: 415px;
+#box1 li img{
 	width: 100%;
 }
-
-#banner_bt {
-	list-style-type: none;
-	bottom: 5px;
-	left: 5px;
+#main_bn_bt{
 	overflow: hidden;
-	border: 1px solid red;
-	right: 10px;
-	position: relative;
-	top: 0;
-	float: right;
-	width: 450px;
-	height: 100%;
+	float:right;
+	width: 500px;
+    padding-top: 40px;
+    height: 590px;
 }
-
-#banner_bt li {
-	float: left;
-	padding: 3px 6px;
-	margin-right: 5px;
+#main_bn_bt li a img{
 	width: 200px;
 	height: 200px;
 }
-
-#banner_bt li img {
-	width: 100%;
-	height: 100%;
-	margin: 0 auto;
+#main_bn_bt li{
+	float: left;
+	margin: 20px;
 }
-
-a, a:hover, a:visited {
-	text-decoration: none;
-}
-
-.long {
-	
+li{
+	list-style: none;
 }
 </style>
 </head>
 <body>
-	<div id="bannerWrap">
+<div id ="wrap1">
+    <div id="box1">
+      <li><img src="${conPath }/qnaImg/Warframe0005.jpg" alt="1"  /></li>
+     <li><img src="${conPath }/qnaImg/Warframe0006.jpg" alt="2" /></li>
+     <li><img src="${conPath }/qnaImg/Warframe0009.jpg" alt="3" /></li>
+      <li><img src="${conPath }/qnaImg/Warframe0005.jpg" alt="4" /></li>
+    </div>
+  <div id="main_bn_bt">
+  	<div>
+       <li><a href="#1"><img src="${conPath }/qnaImg/Warframe0005.jpg" alt="1" /></a></li>
+       <li><a href="#2"><img src="${conPath }/qnaImg/Warframe0006.jpg" alt="2" /></a></li>
+    </div>
+    <div>
+       <li><a href="#3"><img src="${conPath }/qnaImg/Warframe0009.jpg" alt="3" /></a></li>
+       <li><a href="#4"><img src="${conPath }/qnaImg/Warframe0005.jpg" alt="4" /></a></li>
+     </div>
+  </div>
+</div>
 
 
-		<div id="banner">
-
-			<li><a href=""><img src="${conPath }/teamIMG/반지1.jpg"/></a>
-			</li>
-			<li><a href=""><img src="${conPath }/teamIMG/반지2.jpg"/></a>
-			</li>
-			<li><a href=""><img src="${conPath }/teamIMG/반지3.jpg"/></a>
-			</li>
-			<li><a href=""><img src="${conPath }/teamIMG/반지4.jpg"/></a></li>
-
-		</div>
-		<div id="banner_bt">
-
-			<li><a href="#1"><img alt="1" src="${conPath }/teamIMG/반지1.jpg"></a></li>
-			<li><a href="#2"><img alt="2" src="${conPath }/teamIMG/반지2.jpg"></a></li>
-			<li><a href="#3"><img alt="3" src="${conPath }/teamIMG/반지3.jpg"></a></li>
-			<li><a href="#3"><img alt="4" src="${conPath }/teamIMG/반지4.jpg"></a></li>
-
-		</div>
-
-
-
-	</div>
 
 </body>
 </html>
