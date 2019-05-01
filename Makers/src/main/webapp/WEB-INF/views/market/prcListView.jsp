@@ -64,9 +64,9 @@
 		});
 	/* ----------------------------------------- 글쓰기 ---------------------------------------------- */
 		$('#prcWrite').click(function(){
-			var mid = '${member.mid}';
+			var mid = '${mem.mid}';
 			var prccontent = $('#prcontent').val();
-			var pnum = 2;	//!!!!판매페이지랑 붙일때 고쳐야함 !!!! 제품번호 넘어올때 어떻게 넘어올지 정하면 해당 형식에서 제품번호를 추출해야함
+			var pnum = ${param.pnum};	//!!!!판매페이지랑 붙일때 고쳐야함 !!!! 제품번호 넘어올때 어떻게 넘어올지 정하면 해당 형식에서 제품번호를 추출해야함
 			console.log(mid +' / '+prccontent+' / '+pnum);
 			$.ajax({
 				url:'${conPath}/prcWrite.do',
@@ -108,7 +108,7 @@
 			$('#selContent').text(content);
 			$('#selDate').text(date);
 			
-			if(writer=='${member.mid}' || ${not empty admin}){
+			if(writer=='${mem.mid}' || ${not empty admin}){
 				$('#prcDel').removeAttr("style");
 			}else{
 				$('#prcDel').attr("style","display:none");
@@ -121,8 +121,8 @@
 	/*---------------------------------답글 달기------------------------------------*/
 		$('#replWrite').click(function(){
 			var replContent = $('#replContent').val();
-			var mid='${member.mid}';
-			var pnum = 2;	//!!!!판매페이지랑 붙일때 고쳐야함 !!!! 제품번호 넘어올때 어떻게 넘어올지 정하면 해당 형식에서 제품번호를 추출해야함
+			var mid='${mem.mid}';
+			var pnum = ${param.pnum};	//!!!!판매페이지랑 붙일때 고쳐야함 !!!! 제품번호 넘어올때 어떻게 넘어올지 정하면 해당 형식에서 제품번호를 추출해야함
 			console.log('index = '+index);
 			console.log(replContent+' / '+mid+' / '+pnum+' / '+prcgroup);
 		  	$.ajax({
@@ -162,14 +162,14 @@
 </script>
 </head>
 <body>
-	<div class="container">
-		<c:if test="${not empty member }">
+	<div class="container" style="margin:0;padding:0;width:100%;">
+		<c:if test="${not empty mem }">
 			<table class="table table=striped table-hover">
 				<tr>
 					<th class="text-center">ID</th><th class="text-center">내용</th><th class="text-center">확인</th>
 				</tr>
 				<tr>
-					<td class="text-center" style="vertical-align:middle;">${member.mid }<input type="hidden" value="${member.mid }"></td>
+					<td class="text-center" style="vertical-align:middle;">${mem.mid }<input type="hidden" value="${mem.mid }"></td>
 					<td><textarea  class="form-control" name="prcontent" id="prcontent" rows="4" cols="100"></textarea></td>
 					<td class="text-center" style="vertical-align:middle;"><input class="btn btn-warning" id="prcWrite" type="button" value="올리기"></td>
 				</tr>
@@ -212,8 +212,8 @@
 	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-lg">
 	    <div class="modal-content">
-	      <div class="container-fluid" <c:if test="${not empty member }">style="height:385px;"</c:if>
-	      								<c:if test="${empty member }">style="height:200px;"</c:if>>		<!-- 합칠때 상품 판매자 ID와 비교하여 판매자만 답글을 달 수 있게 해야함!!!!!! -->
+	      <div class="container-fluid" <c:if test="${not empty mem }">style="height:385px;"</c:if>
+	      								<c:if test="${empty mem }">style="height:200px;"</c:if>>		<!-- 합칠때 상품 판매자 ID와 비교하여 판매자만 답글을 달 수 있게 해야함!!!!!! -->
 	      		<div class="row" style="height:30px;margin-top:10px;">
 					<div class="clearfix col-md-3 text-center"><strong>ID</strong></div><div class="clearfix col-md-7 text-center"><strong>내용</strong></div><div class="clearfix col-md-2 text-center"><strong>작성일</strong></div>
 				</div>
@@ -227,13 +227,13 @@
 					<div class="col-md-4 text-center"><button class="btn btn-default" id="prcDel" style="display:none;">Delete</button></div>
 					<div class="col-md-4 text-right"><code>^-^</code></div>
 				</div>
-				<c:if test="${not empty member }">
+				<c:if test="${not empty mem }">
 					<hr>
 					<div class="row" style="height:30px;">
 						<div class="clearfix col-md-3 text-center"><strong>Reply</strong></div><div class="clearfix col-md-7 text-center"><strong>내용</strong></div><div class="clearfix col-md-2 text-center"><strong>확인</strong></div>
 					</div>
 					<div class="row" style="height:110px;">
-						<div class="clearfix col-md-3 text-center align-self-center"><h2><span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span></h2><span class="glyphicon-class">Reply</span><input type="hidden" value="${member.mid }"></div>
+						<div class="clearfix col-md-3 text-center align-self-center"><h2><span class=" glyphicon glyphicon-pencil" aria-hidden="true"></span></h2><span class="glyphicon-class">Reply</span><input type="hidden" value="${mem.mid }"></div>
 						
 						<div class="clearfix col-md-7 "><textarea id="replContent" class="form-control" rows="4" id=""></textarea></div>
 						<div class="clearfix col-md-2 text-center" style="vertical-align:middle;"><input style="width:100%;height:94px;" class="btn btn-warning" data-dismiss="modal" id="replWrite" type="button" value="올리기"></div>

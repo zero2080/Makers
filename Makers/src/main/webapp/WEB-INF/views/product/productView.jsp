@@ -77,7 +77,7 @@ var colorList = new Array();
 	</div>
 	<div class="col-lg-20"><pre>${pList.pcontent }</pre></div>
 	
-	
+		<iframe class="text-center" src="${conPath }/prcView.do?pnum=${param.pnum }" frameborder="0" width="1150" height="655" style="margin:0 auto;"></iframe>
 </div>
 		<div id="addTemp">
 		
@@ -91,7 +91,7 @@ var colorList = new Array();
 		<button onclick="location.href='${conPath}/Product/productTrans.do?&pnum=${pList.pnum }&pageNum=${pageNum }'">삭제</button>
 		<%-- </c:if> --%>
 		<button onclick="location.href='${conPath}/Cart/cartListView.do?mid=${mem.mid }'">장바구니가기</button>
-		
-		<jsp:include page="${conPath }/prcView.do?pnum=${param.pnum }"/>
+
+	
 </body>
 </html>
