@@ -107,7 +107,7 @@ $(document).ready(function() {
             	<option value="기타">기타</option>
             </select>
             <input class="subject" type="text" name="ptitle" placeholder="판매 상품명" required="required">
-            <input type="number" class="pcount" name="pcount" placeholder="재고량" readonly="readonly" value="${mo.mrcount }" size=4>
+            <input type="number" class="pcount" name="pcount" placeholder="재고량" value="${mo.mrcount }" size=4>
             <input type="number" name="price" placeholder="금액" required="required">원
             <div class="bf">
             </div>

@@ -19,12 +19,6 @@ public class PrCommentController {
 	
 	@RequestMapping(value="prcView")
 	public String listView(String pageNum, Prcomment prc, Model model) {
-		/********************************************************/
-		/*				     제품번호 임시 설정				    */
-		/* 임시로 설정함  */  prc.setPnum(2); /* 임시로 설정함  */
-		/*											 		    */
-		/********************************************************/
-		
 		Paging paging = new Paging(prcService.prcTotCnt(prc.getPnum()),pageNum,10,10);
 		prc.setStartRow(paging.getStartRow());
 		prc.setEndRow(paging.getEndRow());
@@ -37,11 +31,6 @@ public class PrCommentController {
 	@ResponseBody
 	public List<Prcomment> moreComment(String pageNum, Prcomment prc, Model model){
 		System.out.println("moreComment: 잘들어옴 ㅇㅇ");
-		/*******************************************************/
-		/*				     제품번호 임시 설정				   */
-		/* 임시로 설정함  */  prc.setPnum(2); /* 임시로 설정함 */
-		/*													   */
-		/*******************************************************/
 		Paging paging = new Paging(prcService.prcTotCnt(prc.getPnum()),pageNum,10,10);
 		prc.setStartRow(paging.getStartRow());
 		prc.setEndRow(paging.getEndRow());

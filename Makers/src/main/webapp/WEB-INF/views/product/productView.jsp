@@ -72,7 +72,8 @@ var colorList = new Array();
 	<div class="jumbotron">
 	 	<h1>${pList.ptitle }</h1>
 	 	<p class="lead">카테고리 : ${pList.pcategory } / 금액 : <fmt:formatNumber value="${pList.price }" pattern="#,###"/>원 / 제작자 : ${pList.mid } / 남은수량 : ${pList.pcount }</p>
-	 	<span><input type="number" name="ctcount" style="width: 200px; height: 40px;" placeholder="수량"></span> <span><a class="btn btn-lg btn-success" onclick="buy();" role="button">Get Item!</a> </span><span><a class="btn btn-lg btn-success" role="button" onclick="cart();">장바구니 넣기</a></span>
+	 	<span><input type="number" name="ctcount" style="width: 200px; height: 40px;" placeholder="수량"></span> <span><a class="btn
+	 			 btn-lg btn-success" onclick="buy();" role="button">Get Item!</a> </span><span><a class="btn btn-lg btn-success" role="button" onclick="cart();">장바구니 넣기</a></span>
 	</div>
 	<div class="col-lg-20"><pre>${pList.pcontent }</pre></div>
 	
@@ -90,6 +91,7 @@ var colorList = new Array();
 		<button onclick="location.href='${conPath}/Product/productTrans.do?&pnum=${pList.pnum }&pageNum=${pageNum }'">삭제</button>
 		<%-- </c:if> --%>
 		<button onclick="location.href='${conPath}/Cart/cartListView.do?mid=${mem.mid }'">장바구니가기</button>
-
+		
+		<jsp:include page="${conPath }/prcView.do?pnum=${param.pnum }"/>
 </body>
 </html>
